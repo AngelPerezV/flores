@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Con mucho cariño, tus flores amarillas 🌻💛</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #4fc3f7, #b3e5fc 60%, #81c784 60%);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* --- FONDO SOLEADO Y NUBES --- */
+    .sun {
+      position: absolute;
+      top: 40px;
+      right: 60px;
+      width: 90px;
+      height: 90px;
+      background: #ffeb3b;
+      border-radius: 50%;
+      box-shadow: 0 0 40px #ffca28, 0 0 80px #ffee58;
+      animation: pulseSun 4s infinite alternate;
+    }
+
+    @keyframes pulseSun {
+      from { transform: scale(1); }
+      to { transform: scale(1.08); }
+    }
+
+    .cloud {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 100px;
+      opacity: 0.85;
+      animation: floatCloud 25s linear infinite;
+    }
+
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+    }
+
+    .c1 {
+      width: 120px; height: 40px; top: 60px; left: -150px;
+      animation-duration: 30s;
+    }
+    .c1::before { width: 50px; height: 50px; top: -25px; left: 20px; }
+    .c1::after { width: 60px; height: 60px; top: -35px; left: 50px; }
+
+    .c2 {
+      width: 160px; height: 50px; top: 130px; left: -200px;
+      animation-duration: 20s;
+      animation-delay: -5s;
+    }
+    .c2::before { width: 70px; height: 70px; top: -40px; left: 25px; }
+    .c2::after { width: 80px; height: 80px; top: -45px; left: 70px; }
+
+    @keyframes floatCloud {
+      from { transform: translateX(-200px); }
+      to { transform: translateX(calc(100vw + 200px)); }
+    }
+
+    /* Pastito inferior */
+    .ground {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 40%;
+      background: linear-gradient(to bottom, #81c784, #4caf50);
+      z-index: 1;
+    }
+
+    /* --- FLORES AMARILLAS MÚLTIPLES --- */
+    .flower-wrapper {
+      position: absolute;
+      bottom: 25vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: scale(0);
+      transform-origin: bottom center;
+      z-index: 2;
+    }
+
+    /* Posiciones y tiempos escalonados para que broten conforme pasa la abeja */
+    .f1 { left: 25vw; animation: drawFlower 1.5s ease-out 2s forwards; }
+    .f2 { left: 45vw; animation: drawFlower 1.5s ease-out 3.5s forwards; }
+    .f3 { left: 65vw; animation: drawFlower 1.5s ease-out 5s forwards; }
+
+    .stem {
+      width: 12px;
+      height: 180px;
+      background: linear-gradient(to right, #2e7d32, #4caf50);
+      border-radius: 6px;
+      position: relative;
+    }
+
+    .leaf {
+      position: absolute;
+      width: 50px;
+      height: 24px;
+      background: #388e3c;
+      border-radius: 500px 0px 500px 0px;
+    }
+
+    .leaf.left {
+      left: -45px;
+      top: 80px;
+      transform: rotate(-20deg);
+    }
+
+    .leaf.right {
+      right: -45px;
+      top: 45px;
+      transform: scaleX(-1) rotate(-20deg);
+    }
+
+    .flower {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin-bottom: -6px;
+    }
+
+    .center-flower {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle, #8d6e63, #4e342e);
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    .petals {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .petal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 28px;
+      height: 65px;
+      background: linear-gradient(to top, #fbc02d, #ffeb3b);
+      border-radius: 20px 20px 10px 10px;
+      transform-origin: center bottom;
+    }
+
+    .petal:nth-child(1) { transform: translate(-50%, -100%) rotate(0deg); }
+    .petal:nth-child(2) { transform: translate(-50%, -100%) rotate(45deg); }
+    .petal:nth-child(3) { transform: translate(-50%, -100%) rotate(90deg); }
+    .petal:nth-child(4) { transform: translate(-50%, -100%) rotate(135deg); }
+    .petal:nth-child(5) { transform: translate(-50%, -100%) rotate(180deg); }
+    .petal:nth-child(6) { transform: translate(-50%, -100%) rotate(225deg); }
+    .petal:nth-child(7) { transform: translate(-50%, -100%) rotate(270deg); }
+    .petal:nth-child(8) { transform: translate(-50%, -100%) rotate(315deg); }
+
+    @keyframes drawFlower {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* --- ABEJA Y CARTEL --- */
+    .bee-container {
+      position: absolute;
+      top: 38%;
+      left: -350px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 5;
+      animation: flyAcross 8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    .bee {
+      position: relative;
+      width: 50px;
+      height: 35px;
+      background: linear-gradient(to right, #fbc02d 30%, #212121 30%, #212121 50%, #fbc02d 50%, #fbc02d 70%, #212121 70%);
+      border-radius: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    }
+
+    .bee::before {
+      content: '';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    .wing {
+      position: absolute;
+      top: -12px;
+      left: 15px;
+      width: 18px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #ccc;
+      border-radius: 50% 50% 0 50%;
+      transform: rotate(45deg);
+      animation: flutter 0.12s infinite alternate;
+    }
+
+    .wing.right {
+      left: 25px;
+      transform: rotate(15deg);
+    }
+
+    @keyframes flutter {
+      from { transform: translateY(0) rotate(45deg); }
+      to { transform: translateY(-4px) rotate(35deg); }
+    }
+
+    .banner {
+      background: #ffffff;
+      padding: 10px 18px;
+      border-radius: 15px;
+      border: 2px dashed #fbc02d;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      font-weight: bold;
+      color: #333;
+      font-size: 1.1rem;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .banner::before {
+      content: '';
+      position: absolute;
+      left: -15px;
+      top: 50%;
+      width: 15px;
+      height: 2px;
+      background: #aaa;
+    }
+
+    /* Animación de la abeja cruzando toda la pantalla de izquierda a derecha */
+    @keyframes flyAcross {
+      0% {
+        left: -350px;
+        top: 45%;
+      }
+      30% {
+        top: 30%;
+      }
+      70% {
+        top: 35%;
+      }
+      100% {
+        left: calc(100vw + 50px);
+        top: 25%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scene">
+    <!-- Sol -->
+    <div class="sun"></div>
+
+    <!-- Nubes flotando -->
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+
+    <!-- Suelo de pasto -->
+    <div class="ground"></div>
+
+    <!-- Múltiples flores amarillas que brotan a su paso -->
+    <div class="flower-wrapper f1">
+      <div class="flower">
+        <div class="center-flower"></div>
+        <div class="petals">
+          <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+          <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        </div>
+      </div>
+      <div class="stem">
+        <div class="leaf left"></div>
+        <div class="leaf right"></div>
+      </div>
+    </div>
+
+    <div class="flower-wrapper f2">
+      <div class="flower">
+        <div class="center-flower"></div>
+        <div class="petals">
+          <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+          <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        </div>
+      </div>
+      <div class="stem">
+        <div class="leaf left"></div>
+        <div class="leaf right"></div>
+      </div>
+    </div>
+
+    <div class="flower-wrapper f3">
+      <div class="flower">
+        <div class="center-flower"></div>
+        <div class="petals">
+          <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+          <div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div>
+        </div>
+      </div>
+      <div class="stem">
+        <div class="leaf left"></div>
+        <div class="leaf right"></div>
+      </div>
+    </div>
+
+    <!-- Abeja volando con el mensaje -->
+    <div class="bee-container">
+      <div class="banner">
+        Con mucho cariño, tus flores amarillas 🌻💛
+      </div>
+      <div class="bee">
+        <div class="wing"></div>
+        <div class="wing right"></div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
